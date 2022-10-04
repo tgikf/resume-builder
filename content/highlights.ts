@@ -1,35 +1,24 @@
-import CodeIcon from '@mui/icons-material/Code';
-import LanguageIcon from '@mui/icons-material/Language';
-import HandymanIcon from '@mui/icons-material/Handyman';
-import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
 const HIGHLIGHTS = [
   {
-    icon: CodeIcon,
-    title: 'Programming',
-    content: 'TypeScript, JavaScript, HTML, CSS, Java, Dart, SQL',
+    iconKey: 'Handyman',
+    title: 'Skills',
+    content: 'Sales, Surveillance, Paintball, Lasertag, Fire Drills, Table Tennis',
   },
   {
-    icon: HandymanIcon,
-    title: 'Tools & Libraries',
-    content: 'Node.js, React.js, Flutter, Git, NPM, Yarn, MSAL, GitLab CI/CD',
-  },
-  {
-    icon: FavoriteIcon,
-    title: 'NPM Favorites',
+    iconKey: 'Favorite',
+    title: 'Best Friends',
     content:
-      'Jest, express, tsoa, socket.io, eslint, create-react-app, AG Grid',
+      'Michael Scott, Angela Martin, Andy Bernard, Pam Beesly',
   },
   {
-    icon: LanguageIcon,
+    iconKey: 'Language',
     title: 'Languages',
-    content: 'German (native), English (fluent), French (DELF B2)',
+    content: 'English (native), Spanish, German, Japanese, French, Dothraki',
   },
   {
-    icon: SelfImprovementIcon,
+    iconKey: 'SelfImprovement',
     title: 'Interests',
-    content: 'Squash, Tennis, Football, Pet Projects, Gaming',
+    content: 'Farming, Reading, Weapons, Gōjū-ryū Karate, Travelling',
   },
 ];
 

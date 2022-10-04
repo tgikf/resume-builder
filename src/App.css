@@ -19,6 +19,22 @@
     U+FEFF, U+FFFD;
 }
 
+body {
+  background: #e3e4e4;
+  margin: 0;
+}
+@media only screen and (max-width: 630mm) {
+  .inputPanel {
+    width: 95%;
+  }
+}
+
+@media only screen and (min-width: 631mm) {
+  .inputPanel {
+    width: 65%;
+  }
+}
+
 ol {
   padding: 0 0 0 20px;
 }
@@ -30,6 +46,7 @@ ul {
 h6 ol > li {
   margin-top: 1em;
 }
+
 
 /*styling for bullet points in pdf export (rendered with DejaVu Serif)*/
 @font-face {
@@ -44,5 +61,9 @@ h6 ol > li {
 }
 
 .k-pdf-export ol {
+  padding: 0 0 0 30px;
+}
+
+.k-pdf-export .a4Page {
   padding: 0 0 0 30px;
 }

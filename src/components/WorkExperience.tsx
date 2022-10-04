@@ -1,15 +1,15 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 import MarkdownContent from './common/MarkdownContent';
-import EXPERIENCE from '../../content/experience'
+import { SPACING } from '../defaults'
+import { ExperienceEntry } from '../types'
 
-const WorkExperience = (): JSX.Element => (
+const WorkExperience = (props: { experience: ExperienceEntry[] }): JSX.Element => props.experience.length > 0 && (
   <Box>
     <Typography variant="h4" color="primary.dark">
       Work Experience
     </Typography>
-    {EXPERIENCE.map((e, i) => (
-      <Box key={`ex${i}`} sx={{ marginTop: i > 0 ? 1.5 : 0 }}>
+    {props.experience.map((e, i) => (
+      <Box key={`ex${i}`} sx={{ marginTop: i > 0 ? SPACING.workExperience.top : 0 }}>
         <Box
           sx={{
             display: 'flex',
@@ -20,7 +20,9 @@ const WorkExperience = (): JSX.Element => (
           <Typography variant="h6">{e.period}</Typography>
         </Box>
         <Typography variant="h6">
-          {e.employer}, {e.department}, {e.location}
+          {e.employer && e.employer.length > 0 && `${e.employer}, `}
+          {e.department && e.department.length > 0 && `${e.department}, `}
+          {e.location && e.location.length > 0 && e.location}
         </Typography>
         {e.responsibilities.length > 1 ? (
           <ul style={{ marginTop: 1, marginBottom: 1 }}>

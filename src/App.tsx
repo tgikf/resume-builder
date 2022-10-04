@@ -1,109 +1,79 @@
-import React, { useState } from 'react';
-import { render } from 'react-dom';
-
-import { JSX } from '@emotion/react/types/jsx-dev-runtime';
-import { Box, Button, Container, Grid, Link } from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography, AppBar, Toolbar, SwipeableDrawer, Card, CardContent, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material';
+import SupportIcon from '@mui/icons-material/Support';
+import CodeMirror from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
 import { muiTheme } from './defaults';
-import { drawDOM, exportPDF } from '@progress/kendo-drawing';
+import JSON5 from 'json5'
+
 import './App.css';
+import HelpDialog from './components/instructions/HelpDialog'
+import GeneratePdfButton from './components/GeneratePdfButton'
 import ResumePage from './components/ResumePage';
 import WorkExperience from './components/WorkExperience';
 import Education from './components/Education';
 import Certifications from './components/Certifications';
-import PhoneIcon from '@mui/icons-material/Phone';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import AlternateEmail from '@mui/icons-material/AlternateEmail';
+import Sidebar from './components/Sidebar'
+import HighlightList from './components/HighlightList'
+
+import EXPERIENCE from '../content/experience'
+import HIGHLIGHTS from '../content/highlights';
+import COORDINATES from '../content/coordinates'
+import EDUCATION from '../content/education'
+import CERTIFICATIONS from '../content/certifications'
 
 const theme = createTheme(muiTheme);
 
-const generatePdf = async () => {
-  //workaround to ensure SVGs in the sidebar have the correct color
-  const svgChildren = document.querySelectorAll('#sideBar svg *');
-  svgChildren.forEach((path) => path.setAttribute('fill', '#e3e4e4'));
-
-  const element = document.getElementById('resumeRoot');
-  const group = await drawDOM(element, {
-    paperSize: 'A4',
-    scale: 0.75,
-  });
-
-  const pdf = await exportPDF(group, {
-    author: 'Resume export by tgikf',
-    creator: 'Resume export by tgikf',
-    producer: 'Resume export by tgikf',
-    subject: 'Resume export by tgikf',
-    title: 'Resume export by tgikf',
-  });
-  const res = await fetch(pdf);
-  const blob = await res.blob();
-
-  const blobUrl = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = blobUrl;
-  link.download = 'resume.pdf';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-
 const App = (): JSX.Element => {
-  const [sidebarContent, setSidebarContent] = useState({
-    name: { label: 'Dwight Schrute' },
-    email: {
-      icon: (
-        <AlternateEmail
-          sx={{ marginRight: 0.7, fontWeight: 'bold' }}
-          marker="sideBarSvg"
-        />
-      ),
-      label: 'dschrute@gmail.com',
-    },
-    phone: {
-      icon: <PhoneIcon sx={{ marginRight: 0.7 }} marker="sideBarSvg" />,
-      label: '+123 456 78 90',
-    },
-    github: {
-      icon: <GitHubIcon sx={{ marginRight: 0.7 }} marker="sideBarSvg" />,
-      label: 'github.com/dschrute',
-    },
-  });
+  const [resumeContent, setResumeContent] = useState({ coordinates: COORDINATES, highlights: HIGHLIGHTS, experience: EXPERIENCE, education: EDUCATION, certifications: CERTIFICATIONS });
+  const [dialogOpen, setDialogOpen] = useState(true);
 
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        sx={{
-          display: 'flex',
-          backgroundColor: 'background.default',
-          minHeight: '100vh',
-          maxHeight: '100%',
-          minWidth: '100%',
-        }}
-      >
-        <Grid container spacing={0}>
-          <Grid item md={12} lg={12} xl={4}>
-            <Button
-              variant="contained"
-              sx={{ maxWidth: 150, marginBottom: 1 }}
-              onClick={generatePdf}
-            >
-              Export as PDF
-            </Button>
-          </Grid>
-          <Grid item md={12} lg={12} xl={8}>
-            <Box id="resumeRoot">
+      <HelpDialog open={dialogOpen} handleClose={() => setDialogOpen(false)} />
+      <AppBar position="sticky">
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', gap: '0.5rem' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Resume Builder
+          </Typography>
+          <Button variant="outlined" startIcon={<SupportIcon />} onClick={() => setDialogOpen(true)} color="onPrimary">
+            Getting Started
+          </Button>
+          <GeneratePdfButton />
+        </Toolbar>
+      </AppBar>
+      <Box sx={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+      }}>
+        <Box className="inputPanel">
+          <CodeMirror
+            height="calc(100vh - 64px)"
+            value={JSON5.stringify(resumeContent, null, 2)}
+            extensions={[javascript()]}
+            onChange={(value) => {setResumeContent(JSON5.parse(value)) }}
+          />
+        </Box>
+        <Box>
+
+          <Box sx={{ minWidth: '210mm', minHeight: '297mm' }}>
+            <Box id="resumeRoot" >
               <ResumePage
-                sidebarContent={sidebarContent}
-                showSideBarHighlights={true}
+                sidebar={<Sidebar coordinates={resumeContent.coordinates}><HighlightList highlights={resumeContent.highlights || []} /></Sidebar>}
               >
-                <WorkExperience />
-                <Education />
-                <Certifications />
+                <WorkExperience experience={resumeContent.experience || []} />
+                <Education education={resumeContent.education || []} />
+                <Certifications certifications={resumeContent.certifications || []} />
               </ResumePage>
             </Box>
-          </Grid>
-        </Grid>
-      </Container>
+          </Box></Box>
+
+      </Box>
     </ThemeProvider>
   );
 };

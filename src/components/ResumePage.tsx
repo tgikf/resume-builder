@@ -1,24 +1,34 @@
-import React from 'react';
 import { JSX } from '@emotion/react/types/jsx-dev-runtime';
 import { Box } from '@mui/material';
-import Sidebar from './Sidebar';
+
 import { SIDE_MARGIN } from '../defaults';
-import { SidebarContent } from '../types';
 
 const ResumePage = (props: {
-  showSideBarHighlights: boolean;
-  sidebarContent: SidebarContent;
+  sidebar: JSX.Element;
   children: JSX.Element | JSX.Element[];
 }): JSX.Element => (
   <Box
     sx={{
       width: '210mm',
       height: '297mm',
-      marginBottom: 1,
-      display: 'flex',
+      display: 'flex'
     }}
   >
-    <Sidebar showHighlights={true} sidebarContent={props.sidebarContent} />
+    <Box
+      id="sideBar"
+      sx={{
+        height: 1,
+        width: 0.29,
+        boxSizing: 'border-box',
+        backgroundColor: 'primary.dark',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        padding: SIDE_MARGIN,
+      }}
+    >
+      {props.sidebar}
+    </Box>
     <Box
       sx={{
         height: 1,
@@ -27,7 +37,7 @@ const ResumePage = (props: {
         backgroundColor: 'white',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         padding: SIDE_MARGIN,
       }}
     >

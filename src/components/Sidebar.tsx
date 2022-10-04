@@ -1,48 +1,32 @@
 import { JSX } from '@emotion/react/types/jsx-dev-runtime';
-import { Box, Stack, Typography, Link } from '@mui/material';
-import { SIDE_MARGIN } from '../defaults';
-import HighlightList from './HighlightList';
+import { Box, Stack, Typography } from '@mui/material';
+import MuiIcon from './common/MuiIcon'
 
 const Sidebar = (props: {
-  showHighlights: boolean;
-  sidebarContent: { [key: string]: { icon: JSX.Element; label: string | JSX.Element } };
+  coordinates: { name: string, others: { iconKey: string, label: string }[] };
+  children?: JSX.Element | JSX.Element[];
 }): JSX.Element => (
-  <Box
-    sx={{
-      height: 1,
-      width: 0.29,
-      boxSizing: 'border-box',
-      backgroundColor: 'primary.dark',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-around',
-      padding: SIDE_MARGIN,
-    }}
-    id="sideBar"
-  >
+  <>
     <Box>
       <Typography variant="h2" color="onPrimaryDark.default">
-        {props.sidebarContent.name.label}
+        {props.coordinates?.name}
       </Typography>
       <Stack sx={{ marginTop: 2 }}>
-        {Object.keys(props.sidebarContent)
-          .filter((key) => key !== 'name')
-          .map((e, i) => (
-            <Typography
-              component={Stack}
-              direction="row"
-              color="onPrimaryDark.default"
-              key={`elem${i}`}
-            >
-              {props.sidebarContent[e].icon}
-              {props.sidebarContent[e].label}
-            </Typography>
-          ))}
+        {props.coordinates?.others?.length > 0 && props.coordinates.others.map((e, i) => (
+          <Typography
+            component={Stack}
+            direction="row"
+            color="onPrimaryDark.default"
+            key={`elem${i}`}
+          >
+            <MuiIcon iconKey={e.iconKey} />
+            {e.label}
+          </Typography>
+        ))}
       </Stack>
     </Box>
+    {props.children}
+  </>)
 
-    {props.showHighlights && <HighlightList />}
-  </Box>
-);
 
 export default Sidebar;

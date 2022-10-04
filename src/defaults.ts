@@ -1,5 +1,11 @@
 export const SIDE_MARGIN = 3;
 
+export const SPACING = {
+  workExperience: {
+    top: 2
+  }
+}
+
 export const muiTheme = {
   palette: {
     primary: {
@@ -14,6 +20,7 @@ export const muiTheme = {
     onPrimaryDark: {
       default: '#e3e4e4',
     },
+    onPrimary: { main: '#ffffff' }
   },
   typography: {
     body1: {},

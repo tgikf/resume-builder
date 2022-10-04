@@ -1,40 +1,28 @@
-import React from 'react';
-import { JSX } from '@emotion/react/types/jsx-dev-runtime';
 import { Box, Typography } from '@mui/material';
+import { EducationEntry } from '../types'
 
-const Education = (): JSX.Element => (
+const Education = (props: { education: EducationEntry[] }): JSX.Element => props.education.length > 0 && (
   <Box>
     <Typography variant="h4" color="primary.dark">
       Education
     </Typography>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Typography variant="h6">
-        Bachelor of Science (Honours) Business Information Systems
-      </Typography>
-      <Typography variant="h6">Feb 20</Typography>
-    </Box>
-    <Typography variant="h6">First Class Honours (GPA 4.15)</Typography>
-    <Typography variant="body1">University of Portsmouth</Typography>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginTop: 1,
-      }}
-    >
-      <Typography variant="h6">
-        Swiss Confederate Certificate of Competence in IT
-      </Typography>
-      <Typography variant="h6">Jul 13</Typography>
-    </Box>
-    <Typography variant="h6">Focus Application Development</Typography>
-    <Typography variant="body1">UBS AG</Typography>
+    {props.education.map((e, i) => (
+      <Box key={`edu${e.title}${i}`}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h6">{e.title}</Typography>
+          <Typography variant="h6">{e.date}</Typography>
+        </Box>
+        <Typography variant="h6">{e.subtitle}</Typography>
+        <Typography variant="body1">{e.institution}</Typography>
+      </Box>
+    ))}
   </Box>
 );
+
 
 export default Education;
