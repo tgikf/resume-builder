@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Resume Builder by tgikf",
+  "homepage": "https://tgikf.github.io/resume-builder",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
