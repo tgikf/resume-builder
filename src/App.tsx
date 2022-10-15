@@ -37,6 +37,7 @@ const App = (): JSX.Element => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Resume Builder
           </Typography>
+          {/* @ts-ignore */}
           <Button variant="outlined" startIcon={<SupportIcon />} onClick={() => setDialogOpen(true)} color="onPrimary">
             Getting Started
           </Button>
@@ -56,7 +57,7 @@ const App = (): JSX.Element => {
             height="calc(100vh - 64px)"
             value={JSON5.stringify(resumeContent, null, 2)}
             extensions={[javascript()]}
-            onChange={(value) => {setResumeContent(JSON5.parse(value)) }}
+            onChange={(value) => { setResumeContent(JSON5.parse(value)) }}
           />
         </Box>
         <Box>

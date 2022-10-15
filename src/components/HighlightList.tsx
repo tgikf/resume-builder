@@ -11,7 +11,7 @@ const HighlightList = (props: { highlights: HighlightEntry[] }): JSX.Element => 
     return { icon, title, content }
   })
 
-  return props?.highlights?.length > 0 && (
+  return props?.highlights?.length > 0 ? (
     <Stack spacing={3}>
       {props.highlights.map((highlight) => (
         <Box key={`hl${highlight.title}`}>
@@ -29,7 +29,7 @@ const HighlightList = (props: { highlights: HighlightEntry[] }): JSX.Element => 
           </Typography>
         </Box>
       ))}
-    </Stack>);
+    </Stack>) : <></>;
 }
 
 export default HighlightList;

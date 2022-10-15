@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { EducationEntry } from '../types'
 
-const Education = (props: { education: EducationEntry[] }): JSX.Element => props.education.length > 0 && (
+const Education = (props: { education: EducationEntry[] }): JSX.Element => props.education.length > 0 ? (
   <Box>
     <Typography variant="h4" color="primary.dark">
       Education
@@ -22,7 +22,7 @@ const Education = (props: { education: EducationEntry[] }): JSX.Element => props
       </Box>
     ))}
   </Box>
-);
+) : <></>;
 
 
 export default Education;

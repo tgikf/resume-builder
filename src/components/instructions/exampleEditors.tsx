@@ -10,11 +10,11 @@ import {
   certificationsExample,
 } from '../../../content/examples';
 
-const ExampleEditor = (valueObject) => <CodeMirror
-            value={JSON5.stringify(valueObject, null, 2)}
-            extensions={[javascript()]}
-            editable={false}
-          />
+const ExampleEditor = (valueObject: any) => <CodeMirror
+  value={JSON5.stringify(valueObject, null, 2)}
+  extensions={[javascript()]}
+  editable={false}
+/>
 export const CoordinatesExampleEditor = () => ExampleEditor(coordinatesExample)
 export const HighlightsExampleEditor = () => ExampleEditor(highlightsExample)
 export const ExperienceExampleEditor = () => ExampleEditor(experienceExample)

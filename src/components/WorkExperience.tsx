@@ -3,7 +3,7 @@ import MarkdownContent from './common/MarkdownContent';
 import { SPACING } from '../defaults'
 import { ExperienceEntry } from '../types'
 
-const WorkExperience = (props: { experience: ExperienceEntry[] }): JSX.Element => props.experience.length > 0 && (
+const WorkExperience = (props: { experience: ExperienceEntry[] }): JSX.Element => props.experience.length > 0 ? (
   <Box>
     <Typography variant="h4" color="primary.dark">
       Work Experience
@@ -36,12 +36,12 @@ const WorkExperience = (props: { experience: ExperienceEntry[] }): JSX.Element =
           <MarkdownContent
             textVariant="body2"
             content={e.responsibilities[0]}
-            sx={{ marginTop: 0.5, marginBottom: 0.5 }}
+            sx={{ marginTop: '0.5', marginBottom: '0.5' }}
           />
         )}
       </Box>
     ))}
   </Box>
-);
+) : <></>;
 
 export default WorkExperience;

@@ -3,12 +3,12 @@ import { CertificationEntry } from "../types";
 
 const Certifications = (props: {
   certifications: CertificationEntry[],
-}): JSX.Element => props.certifications.length > 0 && (
+}): JSX.Element => props.certifications.length > 0 ? (
   <Box>
     <Typography variant="h4" color="primary.dark">
       Certifications
     </Typography>
-    {props.certifications.map((e, i) => 
+    {props.certifications.map((e, i) =>
       <Box key={`cert${e.title}${i}`}>
         <Box
           sx={{
@@ -23,6 +23,6 @@ const Certifications = (props: {
       </Box>
     )}
   </Box>
-);
+) : <></>;
 
 export default Certifications;
