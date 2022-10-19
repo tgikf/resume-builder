@@ -210,7 +210,7 @@ const HelpDialog = (props: { open: boolean, handleClose: () => void }) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button href="https://github.com/tgikf" target="_blank">
+            <Button href="https://github.com/tgikf/resume-builder" target="_blank">
               Source Code on GitHub
             </Button>
           </CardActions>
